@@ -307,7 +307,7 @@
                             <div>
                                 <label for="material-display" class="block text-sm font-medium text-gray-300 mb-1">Material</label>
                                 <input type="text" id="material-display" class="w-full bg-gray-700 text-gray-400 rounded-lg border-gray-600 focus:ring-0" value="PLA (Standard)" readonly>
-                                <p class="text-xs text-gray-400 mt-1">Cost: $0.32 per ounce</p>
+                                <p class="text-xs text-gray-400 mt-1">Cost: $14 per 1kg</p>
                             </div>
                              <div>
                                 <label for="color-select" class="block text-sm font-medium text-gray-300 mb-1">Color Choice</label>
@@ -329,7 +329,7 @@
                         <div id="cost-display" class="text-5xl font-bold text-copper mb-4">
                             $0.00
                         </div>
-                        <p class="text-xs text-gray-500 mb-4">Includes setup fee, machine time, and material. Does not include shipping or taxes.</p>
+                        <p class="text-xs text-gray-500 mb-4">Includes machine time and material. Does not include shipping or taxes.</p>
                         <button id="add-to-cart-btn" class="w-full bg-sky hover:bg-opacity-80 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all duration-300 transform hover:scale-105 shadow-lg">
                             Add to Cart (Demo)
                         </button>
@@ -451,13 +451,13 @@
             const MAX_W = 220;
             const MAX_D = 220;
             const MAX_H = 250;
-            const BASE_FEE = 3.00; // Base fee for setup
-            const MACHINE_TIME_PER_HOUR = 1.50; // $1.50/hr for machine time, profit, etc.
-            const GRAMS_PER_HOUR = 5; // Estimated average print speed (grams/hour)
             
-            const COST_PER_GRAM = 0.32 / 28.3495; // $0.32 per ounce converted to grams
+            // --- New Pricing Constants ---
+            const COST_PER_GRAM = 14 / 1000; // $14 per 1000g (1kg)
+            const GRAMS_PER_HOUR = 3.05; // 3.05 grams per hour
+            
             const PLA_DENSITY = 1.24; // g/cm^3 for PLA
-            const DEFAULT_INFILL_MULTIPLIER = 0.25; // Assume 25% infill since option was removed
+            const DEFAULT_INFILL_MULTIPLIER = 0.25; // Assume 25% infill
 
             function calculateCost() {
                 const w = parseFloat(wInput.value) || 0;
@@ -488,12 +488,21 @@
                 // 3. Material Cost
                 const filamentCost = estimatedGrams * COST_PER_GRAM;
                 
-                // 4. Machine Time Cost
+                // 4. Print Time
                 const printTimeHours = estimatedGrams / GRAMS_PER_HOUR;
-                const machineTimeCost = printTimeHours * MACHINE_TIME_PER_HOUR;
                 
-                // 5. Total Cost
-                const totalCost = BASE_FEE + filamentCost + machineTimeCost;
+                // 5. Tiered Machine/Labor Cost
+                let machineCost = 0;
+                if (printTimeHours <= 1) {
+                    machineCost = 3; // $3 flat for anything under 1 hour
+                } else if (printTimeHours > 1 && printTimeHours <= 2) {
+                    machineCost = printTimeHours * 6; // $6 per hour
+                } else {
+                    machineCost = printTimeHours * 12; // $12 per hour
+                }
+                
+                // 6. Total Cost
+                const totalCost = machineCost + filamentCost;
 
                 costDisplay.textContent = `$${totalCost.toFixed(2)}`;
             }
