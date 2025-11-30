@@ -305,21 +305,19 @@
                         <h3 class="text-2xl font-bold text-white mb-4">3. Choose Options</h3>
                         <div class="space-y-4">
                             <div>
-                                <label for="material-select" class="block text-sm font-medium text-gray-300 mb-1">Material</label>
-                                <select id="material-select" class="w-full bg-gray-700 text-white rounded-lg border-gray-600 focus:ring-copper focus:border-copper">
-                                    <option value="0.05" data-density="1.24">PLA (Standard) - $0.05/g</option>
-                                    <option value="0.07" data-density="1.27">PETG (Durable) - $0.07/g</option>
-                                    <option value="0.10" data-density="1.21">TPU (Flexible) - $0.10/g</option>
-                                    <option value="0.08" data-density="1.25">ABS (Heat Resistant) - $0.08/g</option>
-                                </select>
+                                <label for="material-display" class="block text-sm font-medium text-gray-300 mb-1">Material</label>
+                                <input type="text" id="material-display" class="w-full bg-gray-700 text-gray-400 rounded-lg border-gray-600 focus:ring-0" value="PLA (Standard)" readonly>
+                                <p class="text-xs text-gray-400 mt-1">Cost: $0.32 per ounce</p>
                             </div>
                              <div>
-                                <label for="infill-select" class="block text-sm font-medium text-gray-300 mb-1">Infill Density</label>
-                                <select id="infill-select" class="w-full bg-gray-700 text-white rounded-lg border-gray-600 focus:ring-copper focus:border-copper">
-                                    <option value="0.15">Light (15%) - For models</option>
-                                    <option value="0.25" selected>Standard (25%) - Good balance</option>
-                                    <option value="0.50">Strong (50%) - Functional parts</option>
-                                    <option value="1.00">Solid (100%) - Max strength</option>
+                                <label for="color-select" class="block text-sm font-medium text-gray-300 mb-1">Color Choice</label>
+                                <select id="color-select" class="w-full bg-gray-700 text-white rounded-lg border-gray-600 focus:ring-copper focus:border-copper">
+                                    <option value="black">Black</option>
+                                    <option value="white">White</option>
+                                    <option value="gray">Gray</option>
+                                    <option value="copper">Copper</option>
+                                    <option value="blue">Blue</option>
+                                    <option value="pink">Pink</option>
                                 </select>
                             </div>
                         </div>
@@ -447,8 +445,6 @@
             const wInput = document.getElementById('dim-w');
             const dInput = document.getElementById('dim-d');
             const hInput = document.getElementById('dim-h');
-            const materialSelect = document.getElementById('material-select');
-            const infillSelect = document.getElementById('infill-select');
             const costDisplay = document.getElementById('cost-display');
             const dimError = document.getElementById('dim-error');
 
@@ -458,6 +454,10 @@
             const BASE_FEE = 3.00; // Base fee for setup
             const MACHINE_TIME_PER_HOUR = 1.50; // $1.50/hr for machine time, profit, etc.
             const GRAMS_PER_HOUR = 5; // Estimated average print speed (grams/hour)
+            
+            const COST_PER_GRAM = 0.32 / 28.3495; // $0.32 per ounce converted to grams
+            const PLA_DENSITY = 1.24; // g/cm^3 for PLA
+            const DEFAULT_INFILL_MULTIPLIER = 0.25; // Assume 25% infill since option was removed
 
             function calculateCost() {
                 const w = parseFloat(wInput.value) || 0;
@@ -477,23 +477,16 @@
                     return;
                 }
 
-                // Get options
-                const selectedMaterialOption = materialSelect.options[materialSelect.selectedIndex];
-                const materialCostPerGram = parseFloat(selectedMaterialOption.value);
-                const materialDensity = parseFloat(selectedMaterialOption.dataset.density); // g/cm^3
-                
-                const infillMultiplier = parseFloat(infillSelect.value);
-
                 // --- Calculation ---
                 // 1. Volume in cm^3
                 const volumeCm3 = (w * d * h) / 1000;
                 
                 // 2. Estimate grams (this is a ROUGH estimate)
-                // (Volume * Infill * Density) + (Volume * 0.05) for walls/skin
-                const estimatedGrams = (volumeCm3 * infillMultiplier * materialDensity) + (volumeCm3 * materialDensity * 0.1); // Added 10% for walls
+                // Assumes 25% infill and PLA density
+                const estimatedGrams = (volumeCm3 * DEFAULT_INFILL_MULTIPLIER * PLA_DENSITY) + (volumeCm3 * PLA_DENSITY * 0.1); // Added 10% for walls
                 
                 // 3. Material Cost
-                const filamentCost = estimatedGrams * materialCostPerGram;
+                const filamentCost = estimatedGrams * COST_PER_GRAM;
                 
                 // 4. Machine Time Cost
                 const printTimeHours = estimatedGrams / GRAMS_PER_HOUR;
@@ -506,7 +499,7 @@
             }
 
             // Add event listeners to all inputs
-            [wInput, dInput, hInput, materialSelect, infillSelect].forEach(el => {
+            [wInput, dInput, hInput].forEach(el => {
                 el.addEventListener('input', calculateCost);
             });
 
@@ -577,7 +570,8 @@
                 if (cost === "$0.00") {
                     showMessage("Error", "Please enter valid dimensions to get a quote before adding to cart.");
                 } else {
-                    showMessage("Added to Cart (Demo)", `Your custom print with an estimated cost of ${cost} has been added to your cart. This is a demo; no order has been placed.`);
+                    const selectedColor = document.getElementById('color-select').value;
+                    showMessage("Added to Cart (Demo)", `Your custom print in ${selectedColor} with an estimated cost of ${cost} has been added to your cart. This is a demo; no order has been placed.`);
                 }
             });
 
