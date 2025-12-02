@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Custom Print 3D Co</title>
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Lucide icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <!-- Import Inter font from Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -140,15 +137,12 @@
 </head>
 <body class="bg-gray-900 text-gray-100 selection:bg-copper selection:text-white">
 
-    <!-- --- Header --- -->
     <header class="fixed top-0 left-0 right-0 bg-gray-900/80 backdrop-blur-md z-50 shadow-lg">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo -->
             <a href="#home" class="logo-3d">
                 CUSTOM PRINT <span class="logo-3d-sub">3D CO</span>
             </a>
             
-            <!-- Navigation Links -->
             <div class="hidden md:flex space-x-6 items-center">
                 <a href="#home" class="text-gray-300 hover:text-copper transition-colors duration-300">Home</a>
                 <a href="#products" class="text-gray-300 hover:text-copper transition-colors duration-300">Products</a>
@@ -158,19 +152,15 @@
                     Get Started
                 </a>
             </div>
-            <!-- Mobile Menu Button (placeholder) -->
             <div class="md:hidden">
                 <i data-lucide="menu" class="text-white h-6 w-6"></i>
             </div>
         </nav>
     </header>
 
-    <!-- --- Hero Section --- -->
     <section id="home" class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
-        <!-- Animated Background -->
         <div class="absolute inset-0 z-0 bg-gradient-to-br from-gray-900 via-gray-800 to-black animate-gradientShift bg-[size:200%_200%]">
-            <!-- Subtle dot pattern -->
-             <svg class="absolute inset-0 w-full h-full opacity-10" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dot-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#fff"></circle></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#dot-pattern)"></rect></svg>
+            <svg class="absolute inset-0 w-full h-full opacity-10" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="dot-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#fff"></circle></pattern></defs><rect x="0" y="0" width="100%" height="100%" fill="url(#dot-pattern)"></rect></svg>
         </div>
         
         <div class="container mx-auto px-6 text-center z-10">
@@ -194,7 +184,6 @@
         </div>
     </section>
 
-    <!-- --- Premade Products Section --- -->
     <section id="products" class="py-24 bg-gray-800">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center text-white mb-4">Our Creations</h2>
@@ -203,7 +192,6 @@
             </p>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 
-                <!-- Product Card 1 -->
                 <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-copper/30 hover:shadow-lg hover:scale-[1.02] fade-in-up">
                     <img src="https://placehold.co/600x400/1F2937/B87333?text=Articulated+Dragon" alt="Articulated Dragon" class="w-full h-56 object-cover">
                     <div class="p-6">
@@ -216,7 +204,6 @@
                     </div>
                 </div>
 
-                <!-- Product Card 2 -->
                 <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-sky/30 hover:shadow-lg hover:scale-[1.02] fade-in-up" style="transition-delay: 150ms;">
                     <img src="https://placehold.co/600x400/1F2937/3B82F6?text=Lithophane+Lamp" alt="Lithophane Lamp" class="w-full h-56 object-cover">
                     <div class="p-6">
@@ -229,7 +216,6 @@
                     </div>
                 </div>
 
-                <!-- Product Card 3 -->
                 <div class="bg-gray-900 rounded-xl shadow-2xl overflow-hidden transition-all duration-500 hover:shadow-pink/30 hover:shadow-lg hover:scale-[1.02] fade-in-up" style="transition-delay: 300ms;">
                     <img src="https://placehold.co/600x400/1F2937/EC4899?text=Gaming+Accessory" alt="Gaming Headset Stand" class="w-full h-56 object-cover">
                     <div class="p-6">
@@ -246,14 +232,12 @@
         </div>
     </section>
 
-    <!-- --- Custom Upload & Calculator Section --- -->
     <section id="upload" class="py-24 bg-gray-900">
         <div class="container mx-auto px-6">
             <h2 class="text-4xl font-bold text-center text-white mb-16">Get an Instant Quote</h2>
             
             <div class="max-w-6xl mx-auto bg-gray-800 rounded-xl shadow-2xl p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12">
                 
-                <!-- Left Column: Upload & Dimensions -->
                 <div class="flex flex-col space-y-8 fade-in-up">
                     <div>
                         <h3 class="text-2xl font-bold text-white mb-4">1. Upload Your File</h3>
@@ -269,7 +253,6 @@
                         <div class="mt-4 text-gray-400 text-center">
                             <span id="file-name">No file selected.</span>
                         </div>
-                        <!-- Loading Spinner -->
                         <div id="loading-spinner" class="hidden flex-col items-center justify-center mt-6">
                             <div class="w-8 h-8 border-4 border-copper border-t-transparent rounded-full animate-spin"></div>
                             <p class="text-copper mt-2">Parsing file...</p>
@@ -299,7 +282,6 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Options & Quote -->
                 <div class="flex flex-col space-y-8 fade-in-up" style="transition-delay: 150ms;">
                     <div>
                         <h3 class="text-2xl font-bold text-white mb-4">3. Choose Options</h3>
@@ -323,7 +305,6 @@
                         </div>
                     </div>
                     
-                    <!-- Cost Display -->
                     <div class="bg-gray-900 rounded-lg p-6 text-center">
                         <h4 class="text-lg font-medium text-gray-400 mb-2">Estimated Cost</h4>
                         <div id="cost-display" class="text-5xl font-bold text-copper mb-4">
@@ -340,8 +321,7 @@
         </div>
     </section>
 
-     <!-- --- Contact Section --- -->
-    <section id="contact" class="py-24 bg-gray-800">
+     <section id="contact" class="py-24 bg-gray-800">
         <div class="container mx-auto px-6 max-w-3xl">
             <h2 class="text-4xl font-bold text-center text-white mb-4">Contact Us</h2>
             <p class="text-lg text-gray-400 text-center max-w-xl mx-auto mb-12">
@@ -371,19 +351,15 @@
         </div>
     </section>
 
-    <!-- --- Footer --- -->
     <footer class="bg-gray-900 py-12">
         <div class="container mx-auto px-6 text-center text-gray-500">
             <p>&copy; 2025 CustomPrint3DCo.com. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- --- Message Modal --- -->
     <div id="message-modal" class="hidden fixed top-0 left-0 right-0 z-50 p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full justify-center items-start">
         <div class="relative w-full max-w-md max-h-full">
-            <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 animate-slideIn">
-                <!-- Modal header -->
                 <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
                     <h3 id="modal-title" class="text-xl font-semibold text-gray-900 dark:text-white">
                         Notification
@@ -393,7 +369,6 @@
                         <span class="sr-only">Close modal</span>
                     </button>
                 </div>
-                <!-- Modal body -->
                 <div class="p-6 space-y-6">
                     <p id="modal-message" class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
                         This is a message!
@@ -404,7 +379,6 @@
     </div>
 
 
-    <!-- --- JavaScript --- -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
 
@@ -452,12 +426,14 @@
             const MAX_D = 220;
             const MAX_H = 250;
             
-            // --- New Pricing Constants ---
-            const COST_PER_GRAM = 14 / 1000; // $14 per 1000g (1kg)
-            const GRAMS_PER_HOUR = 3.05; // 3.05 grams per hour
+            // --- ================================== ---
+            // ---         UPDATED CODE BLOCK         ---
+            // --- ================================== ---
             
+            // --- New Pricing Constants ---
+            const COST_PER_KG = 14; // $14 per 1kg
+            const NEW_GRAMS_PER_HOUR = 19.05; // New speed: 19.05 grams per hour
             const PLA_DENSITY = 1.24; // g/cm^3 for PLA
-            const DEFAULT_INFILL_MULTIPLIER = 0.25; // Assume 25% infill
 
             function calculateCost() {
                 const w = parseFloat(wInput.value) || 0;
@@ -477,19 +453,20 @@
                     return;
                 }
 
-                // --- Calculation ---
-                // 1. Volume in cm^3
+                // --- New Calculation Logic ---
+                
+                // 1. Volume in cm^3 ( (w/10) * (d/10) * (h/10) )
                 const volumeCm3 = (w * d * h) / 1000;
                 
-                // 2. Estimate grams (this is a ROUGH estimate)
-                // Assumes 25% infill and PLA density
-                const estimatedGrams = (volumeCm3 * DEFAULT_INFILL_MULTIPLIER * PLA_DENSITY) + (volumeCm3 * PLA_DENSITY * 0.1); // Added 10% for walls
+                // 2. Weight in grams (100% infill)
+                const grams = volumeCm3 * PLA_DENSITY;
                 
                 // 3. Material Cost
-                const filamentCost = estimatedGrams * COST_PER_GRAM;
+                const kilograms = grams / 1000;
+                const filamentCost = kilograms * COST_PER_KG;
                 
                 // 4. Print Time
-                const printTimeHours = estimatedGrams / GRAMS_PER_HOUR;
+                const printTimeHours = grams / NEW_GRAMS_PER_HOUR;
                 
                 // 5. Tiered Machine/Labor Cost
                 let machineCost = 0;
@@ -506,6 +483,11 @@
 
                 costDisplay.textContent = `$${totalCost.toFixed(2)}`;
             }
+            
+            // --- ================================== ---
+            // ---       END OF UPDATED CODE BLOCK    ---
+            // --- ================================== ---
+
 
             // Add event listeners to all inputs
             [wInput, dInput, hInput].forEach(el => {
